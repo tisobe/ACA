@@ -1,0 +1,23 @@
+#! /bin/sh
+
+#  must change these parameters monthly
+workdir=/data/mta4/www/DAILY/mta_pcad/ACA/QTR
+root=total
+datadir=$workdir/Data
+
+PATH="/usr/bin:/home/ascds/DS.release/bin:/opt/local/bin"
+export PATH
+
+if ( test ! -d $datadir ); then
+  echo $datadir 'does not exist'
+  exit
+fi
+
+#  Run pipeline
+punlearn mta_trend_aca
+pset mta_trend_aca verbose=5
+flt_run_pipe -i $datadir -o $workdir/Report -r $root -t mta_trend_aca.ped
+
+#rm -f xtmp*
+
+#end

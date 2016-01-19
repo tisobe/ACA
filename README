@@ -1,0 +1,101 @@
+This directory contains a scripts which create ACA related data.
+
+Script
+------
+create_this_month.py    --- create monthly script for the month
+                          named "update_this_month"
+
+extract_aca_data.perl   --- a script to extract aca data from archive.
+                            normally you don't need to use this but when
+                            you want to fill a gap, this is useful
+
+In /data/mta4/www/DAILY/mta_pcad/ACA/
+update                  --- this runs update_this_month
+update_this_month       --- this script needs to modified every
+                            month by create_this_month.py
+
+update2                 --- this runs update_tot
+update_tot              --- this script creates the entire period
+
+Directory:
+----------
+Script/Template                --- keep a template
+
+
+Data
+----
+Script/Template/update_temp    --- the template of update_this_month
+/dsops/ap/sdp/cache/<yyyy>_<mm>_<dd>/pcad/*acen1.fits
+/dsops/ap/sdp/cache/<yyyy>_<mm>_<dd>/pcad/*fidpr1.fits
+/dsops/ap/sdp/cache/<yyyy>_<mm>_<dd>/pcad/*gspr1.fits
+
+Environment Setting
+--------------------
+setascds
+LD_LIBRARY_PATH="/home/ascds/DS.release/lib:/home/ascds/DS.release/ots/lib:/soft/SYBASE_OSRV15.5/OCS-15_0/lib:/home/ascds/DS.release/otslib:/opt/X11R6/lib:/usr/lib64/alliance/lib"
+
+Output:
+--------
+Directory:<MMM><yy> e.g. OCT15
+    Data    --- a directory to keep the data used.
+    Report  --- a directory to keep the results
+                    acatrd.html
+                    ANGYNEA_#.png
+                    ANGZNEA_#.png
+                    DIFF_#.png
+                    MAG_I_AVG_#.png
+                    POS_ERR_#.png
+
+
+How to extract data from archive
+--------------------------------
+You can run extract_aca_data.perl to extract data, though
+you need to modify a few line in the script. Or you can
+maually do the following
+
+in arc4gl
+operation=retrieve
+dataset=flight
+detector=pcad
+subdetector=aca
+level=1
+filetype=acacent
+tstart=10/01/15
+tstop=10/02/15
+go
+
+operation=retrieve
+dataset=flight
+detector=pcad
+subdetector=aca
+level=1
+filetype=gsprops
+tstart=10/01/15
+tstop=10/02/15
+go
+
+operation=retrieve
+dataset=flight
+detector=pcad
+subdetector=aca
+level=1
+filetype=fidprops
+tstart=10/01/15
+tstop=10/02/15
+go
+
+
+
+How to run the script manually
+-------------------------------
+After extract data using the abvoe prcedure, copy
+update and update_this_month and modify a few
+line in update_this_month. You also need to 
+modify update to point update_this_moth.
+
+Then create an output directory (e.g. OCT15),
+and inside of that create two directories
+Data and Report.
+
+Then run: update
+

@@ -1,0 +1,15 @@
+#! /bin/csh
+source /home/brad/.ascrc
+# temporarily look for mta_fit_trends in ACA dir
+setenv PATH "/data/mta4/www/DAILY/mta_pcad/ACA:${PATH}"
+#./update_aug
+# revert to update_<mon> for DS7.6.9 or higher
+#  abug was introduced in DS7.6.8 
+#  From: Mark Cresitello-Dittmar <mdittmar@head.cfa.harvard.edu>
+#  Date: Mon, 14 Aug 2006 14:08:48 -0400
+#  The REVISION keyword isn't getting updated
+#  with the input value when mta_gen_acastats creates the
+#  GSSTAT/FIDSTAT files in the pipeline.
+#./update_tmp
+# fixed in DS 7.6.10
+./update_this_month
