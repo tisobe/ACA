@@ -5,9 +5,11 @@ workdir=/data/mta4/www/DAILY/mta_pcad/ACA/TOTAL
 root=total
 datadir=$workdir/Data
 
-PATH="/bin:/usr/bin:/home/ascds/DS.release/bin:/usr/local/bin:/opt/local/bin"
+#PATH="/bin:/usr/bin:/home/ascds/DS.release/bin:/usr/local/bin:/opt/local/bin"
+PATH="/bin:/usr/bin:/home/ascds/DS.release/bin:/usr/local/bin:/opt/local/bin:$PATH"
 export PATH
-LD_LIBRARY_PATH="/home/ascds/DS.release/lib:/home/ascds/DS.release/ots/lib:/soft/SYBASE_OSRV15.5/OCS-15_0/lib:/home/ascds/DS.release/otslib:/opt/X11R6/lib:/usr/lib64/alliance/lib"
+#LD_LIBRARY_PATH="/home/ascds/DS.release/lib:/home/ascds/DS.release/ots/lib:/soft/SYBASE_OSRV15.5/OCS-15_0/lib:/home/ascds/DS.release/otslib:/opt/X11R6/lib:/usr/lib64/alliance/lib"
+LD_LIBRARY_PATH="/opt/X11R6/lib:/usr/lib64/alliance/lib:$LD_LIBRARY_PATH"
 export LD_LIBRARY_PATH
 
 if ( test ! -d $datadir ); then
@@ -21,7 +23,7 @@ cd $datadir
 ./mkfiles
 punlearn mta_trend_aca
 pset mta_trend_aca verbose=5
-flt_run_pipe -i $datadir -o $workdir/Report -r $root -t mta_trend_aca.ped
+flt_run_pipe -i $datadir -o $workdir/Report -r $root -t mta_trend_aca.ped 2>/dev/null
 echo ""
 
 #end
