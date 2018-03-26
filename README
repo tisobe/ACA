@@ -1,15 +1,19 @@
 This directory contains a scripts which create ACA related data.
 
-Script
+Script (/data/mta4/www/DAILY/mta_pcad/ACA/)
 ------
 create_this_month.py    --- create monthly script for the month
                           named "update_this_month"
 
-extract_aca_data.perl   --- a script to extract aca data from archive.
+extract_aca_data.py     --- a script to extract aca data from archive.
                             normally you don't need to use this but when
                             you want to fill a gap, this is useful
 
+process_data_for_the_month.py   --- a script to extract aca data and then process for
+                                    the given year/month
+
 In /data/mta4/www/DAILY/mta_pcad/ACA/
+
 update                  --- this runs update_this_month
 update_this_month       --- this script needs to modified every
                             month by create_this_month.py
@@ -98,4 +102,18 @@ and inside of that create two directories
 Data and Report.
 
 Then run: update
+
+
+web site
+--------
+https://cxc.cfa.harvard.edu/mta_days/mta_pcad/ACA/index.html
+
+cron job
+--------
+r2d2-v as mta:
+
+05 01 1 * * cd /data/mta4/www/DAILY/mta_pcad/ACA/; /data/mta4/www/DAILY/mta_pcad/ACA/Script/create_this_month.py 
+25 09 * * * cd /data/mta4/www/DAILY/mta_pcad/ACA ;       ./update 
+25 01 * * 0 cd /data/mta4/www/DAILY/mta_pcad/ACA ;       ./update2
+
 
